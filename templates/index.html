@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Task Smash</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Task Smash 0.6.7</h1>
+    <p>Your task management app! (Actually almost finished now!)</p>
+    <h2>UPDATES</h2>
+    <ul>
+        <li>It's actually stylized and pretty now! (At least I think so...)</li>
+        <li>You can actually edit and delete tasks now! Wow!</li>
+        <li>You can actually add tasks now!</li>
+        <li>Inheritance usage! (it helps with code organization!)</li>
+        <li>SQL Connectivity! (it's actually doing stuff now!)</li>
+    </ul>
+
+    {% if tasks | length < 1 %}
+        <h3>No tasks yet! Add some!</h3>
+    {% else %}
+    <table>
+       <tr>
+           <th>Task</th>
+           <th>Added</th>
+           <th>Actions</th>
+       </tr>
+
+       {% for task in tasks %}
+        <tr>
+            <td>{{ task.content }}</td>
+            <td>{{ task.created.strftime("%Y-%m-%d") }}</td>
+            <td>
+                <a href="/delete/{{task.id}}">Delete</a>
+                <a href="/edit/{{task.id}}">Edit</a>
+            </td>
+            
+        </tr>
+       {% endfor %} 
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+       <input type="text" name="content" id="content" placeholder="Enter task content here...">
+       <input type="submit" value="Add Task" id="btn_Add">
+    </form>
+</div>
+{% endblock %}
